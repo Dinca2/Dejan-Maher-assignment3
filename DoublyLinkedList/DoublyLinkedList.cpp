@@ -12,17 +12,13 @@ template <typename T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
 //Pre-Condition: the list is created. 
 //Post-Condition: all nodes are freed.
-  NodeType<T> *tempNext;
   NodeType<T> *tempBack;
-  for(int i = length; i > 0; i--) {
-    tempNext = tail->next;
-    tempBack = tail->back;
-    *tail = *tail->back;
-    delete tempNext;
-    delete tempBack;
-  } //for
+  while(tail->back != NULL) {
+      tempBack = tail->back;
+      *tail = *tail->back;
+      delete tempBack;
+  } //while
   delete tail;
-  delete head;
 } //~DoublyLinkedList
 
 template <typename T>
@@ -54,6 +50,8 @@ void DoublyLinkedList<T>::insertItem(T &item) {
     newNode->next = location->next;
     if(location->next != NULL) {
       newNode->next->back = newNode;
+    } else {
+      tail = newNode;
     }
 
     location->next = newNode;
