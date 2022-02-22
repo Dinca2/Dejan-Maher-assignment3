@@ -1,49 +1,115 @@
-#include "DoubleLinkedList.h"
+#include "DoublyLinkedList.h"
 
-DoubleLinkedList::DoublyLinkedList() {
+template <typename T>
+DoublyLinkedList<T>::DoublyLinkedList() {
 //Post-Condition: the list is created. 
-}
+  head = NULL;
+  tail = NULL;
+  length = 0;
+} //DoublyLinkedList
 
-DoubleLinkedList::~DoublyLinkedList() {
+template <typename T>
+DoublyLinkedList<T>::~DoublyLinkedList() {
 //Pre-Condition: the list is created. 
-//Post-Condition: all nodes are freed. 
-}
+//Post-Condition: all nodes are freed.
+  NodeType<T> *tempNext;
+  NodeType<T> *tempBack;
+  for(int i = length; i > 0; i--) {
+    tempNext = tail->next;
+    tempBack = tail->back;
+    *tail = *tail->back;
+    delete tempNext;
+    delete tempBack;
+  } //for
+  delete tail;
+  delete head;
+} //~DoublyLinkedList
 
-void DoubleLinkedList::insertItem(DoubleLinkedList::T &item) 
+template <typename T>
+void DoublyLinkedList<T>::insertItem(T &item) {
 //Pre-Condition: the list exists and item is initialized 
 //Post-Condition: the item is inserted into the list, maintaining sorted order.  
-}
- 
-void DoubleLinkedList::deleteItem(DoubleLinkedList::T &item) { 
+
+  NodeType<T> *newNode = new NodeType<T>();
+  NodeType<T> *location = head;
+  newNode->data = item;
+
+  bool found = false;
+
+  if(head == NULL) {
+    head = newNode;
+  } else if(head->data > newNode->data) {
+      newNode->next = head;
+      newNode->next->back = newNode;
+      head = newNode;
+  } else {
+    while(!found) { //repeats until location to insert is found
+      if((location->next != NULL) && (location->next->data < newNode->data)) {
+	location = location->next;
+      } else {
+	found = true;
+      } //if
+    } //while
+
+    newNode->next = location->next;
+    if(location->next != NULL) {
+      newNode->next->back = newNode;
+    }
+
+    location->next = newNode;
+    newNode->back = location;
+  } //if
+  length++;
+} //insert
+template <typename T>
+void DoublyLinkedList<T>::deleteItem(T &item) { 
 //Pre-Condition: the list exists and item is initialized. 
 //Post-Condition: the node that contains item is removed from the list. If the item is 
 //not present in the list, print the message that is shown in the example output. 
 }
- 
-int DoubleLinkedList::lengthIs() const {
-//Pre-Condition: the list exists. 
+
+template <typename T>
+int DoublyLinkedList<T>::lengthIs() const {
+//Pre-Condition: the list exists.
 //Post-Condition: return the length instance variable. 
+  return length;
 }
- 
-void DoubleLinkedList::print() {  
+
+template <typename T>
+void DoublyLinkedList<T>::print() {  
 //Pre-Condition: the list exists. 
 //Post-Condition: items in the list are printed to standard output. 
+
+  NodeType<T> *location = head;
+
+  for(int l = 1; l <= length; l++) {
+    cout << location->data << " ";
+    if(location->next != NULL) {
+      location = location->next;
+    }
+  }
+  cout << endl;
 }
- 
-void DoubleLinkedList::printReverse() {  
+
+template <typename T>
+void DoublyLinkedList<T>::printReverse() {  
 //Pre-Condition: the list exists. 
 //Post-Condition: items in the list are printed to standard output in reverse order. 
 }
 
-void DoubleLinkedList::deleteSubsection(int upperBound, int lowerBound) {
+template <typename T>
+void DoublyLinkedList<T>::deleteSubsection(int upperBound, int lowerBound) {
 
 }
 
-DoubleLinkedList::T DoubleLinkedList::mode() {
+template <typename T>
+T DoublyLinkedList<T>::mode() {
 
+  return head->data; 
 }
 
-void DoubleLinkedList::swapAlternate() {
+template <typename T>
+void DoublyLinkedList<T>::swapAlternate() {
 
 }
 
