@@ -2,6 +2,7 @@
 
 int main(int argc, char* argv[]) {
 
+  /* testing print and insert
   DoublyLinkedList<int> list;
   int item = 1;
   list.insertItem(item);
@@ -13,5 +14,6 @@ int main(int argc, char* argv[]) {
   list.insertItem(item);
   list.print();
   cout << "done" << endl;
+  */
   return EXIT_SUCCESS;
 }
