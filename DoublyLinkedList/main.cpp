@@ -1,7 +1,7 @@
 #include "DoublyLinkedList.h"
 
 int main(int argc, char* argv[]) {
-
+  /* 
   DoublyLinkedList<int> list;
   int item = 1;
   cout << "testint insert: " << endl;
@@ -120,6 +120,6 @@ int main(int argc, char* argv[]) {
   list.print();
   cout << endl;
   cout << "done" << endl;
-  
+  */
   return EXIT_SUCCESS;
 }
