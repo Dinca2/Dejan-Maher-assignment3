@@ -14,11 +14,10 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 //Post-Condition: all nodes are freed.
   NodeType<T> *tempBack;
   while(tail->back != NULL) {
-      tempBack = tail->back;
-      *tail = *tail->back;
-      delete tempBack;
+    tempBack = tail->back;
+    *tail = *tail->back;
+    delete tempBack;
   } //while
-  delete tail;
 } //~DoublyLinkedList
 
 template <typename T>
@@ -39,21 +38,16 @@ void DoublyLinkedList<T>::insertItem(T &item) {
       newNode->next->back = newNode;
       head = newNode;
   } else {
-    while(!found) { //repeats until location to insert is found
-      if((location->next != NULL) && (location->next->data < newNode->data)) {
-	location = location->next;
-      } else {
-	found = true;
-      } //if
-    } //while
-
+    while((location->next != NULL) && (location->next->data < newNode->data)) { //repeats until location to insert is found
+      location = location->next;
+    }      
     newNode->next = location->next;
     if(location->next != NULL) {
       newNode->next->back = newNode;
     } else {
       tail = newNode;
     }
-
+    
     location->next = newNode;
     newNode->back = location;
   } //if
@@ -64,7 +58,50 @@ void DoublyLinkedList<T>::deleteItem(T &item) {
 //Pre-Condition: the list exists and item is initialized. 
 //Post-Condition: the node that contains item is removed from the list. If the item is 
 //not present in the list, print the message that is shown in the example output. 
-}
+  NodeType<T> *location = head;
+  NodeType<T> *tempLocation = NULL;
+
+  bool found = false;
+  if(head == NULL) {
+    cout << "List is empty" << endl;
+  } else if(head->data == item) {
+    tempLocation = head;
+    if(head->next != NULL) {
+      head->next->back = NULL;
+      head = head->next;
+    } else {
+      head = NULL;
+    } //if
+    length--;
+  } else if(tail->data == item) {
+    tempLocation = tail;
+    tail->back->next = NULL;
+    tail = tail->back;
+    length--;
+  } else {
+    
+    for(int i = 0; i < length; i++) {    
+      if(location->next != NULL) {
+	if(location->next->data <= item) {
+	  location = location->next;
+	} else if(location->next->data == item){
+	  found = true;
+	} //if
+      } //if
+    } //for
+    
+    if(found) {
+      tempLocation = location->back;
+      location->back = location->back->back;
+      location->back->back->next = location;
+      length--;
+    } else {
+      cout << "Item not found" << endl;
+    } //if
+  } //if
+  
+  delete tempLocation;
+} //deleteItem
 
 template <typename T>
 int DoublyLinkedList<T>::lengthIs() const {
@@ -79,36 +116,103 @@ void DoublyLinkedList<T>::print() {
 //Post-Condition: items in the list are printed to standard output. 
 
   NodeType<T> *location = head;
+  for(int l = 0; l < length; l++) {
+      cout << location->data << " " << flush;
+      if(location->next != NULL) {
+	location = location->next;
+      } //if
+    } //for
 
-  for(int l = 1; l <= length; l++) {
-    cout << location->data << " ";
-    if(location->next != NULL) {
-      location = location->next;
-    }
-  }
-  cout << endl;
-}
+} //print
 
 template <typename T>
 void DoublyLinkedList<T>::printReverse() {  
 //Pre-Condition: the list exists. 
 //Post-Condition: items in the list are printed to standard output in reverse order. 
+  NodeType<T> *location = tail;
+
+  for(int l = length; l > 0; l--) {
+    cout << location->data << " ";
+    if(location->back != NULL) {
+      location = location->back;
+    } //if
+  } //for
+  
 }
 
 template <typename T>
-void DoublyLinkedList<T>::deleteSubsection(int upperBound, int lowerBound) {
+void DoublyLinkedList<T>::deleteSubsection(T upperBound, T lowerBound) {
 
+  NodeType<T> *location = head;
+  NodeType<T> *tempLoc;
+  while(location->data < lowerBound && location->next != NULL) {
+    location = location->next;
+  } //while
+
+  while(location->data <= upperBound) {
+    tempLoc = location;
+    if(location->back != NULL && location->next != NULL) {
+      location->back->next = location->next;
+      location->next->back = location->back;
+    } else if(location->next != NULL) {
+      location->next->back = NULL;
+      head = head->next;
+    } //if
+    
+    if(location->next != NULL) {
+      location = location->next;
+    }
+    delete tempLoc;
+    length--;
+  } //while
+
+  
 }
 
 template <typename T>
 T DoublyLinkedList<T>::mode() {
 
-  return head->data; 
+  NodeType<T> *location = head;
+  T mode = location->data;
+  int count = 1, modeCount = 0;
+  while(location->next != NULL) {
+    if(location->data == mode) {
+      modeCount++;
+    } else if(location->data == location->next->data) {
+      count++;
+    } //if
+
+    if(count > modeCount) {
+      mode = location->data;
+      modeCount = count;
+      count = 1;
+    } //if
+    location = location->next;
+  }
+  
+  return mode; 
 }
 
 template <typename T>
 void DoublyLinkedList<T>::swapAlternate() {
+  NodeType<T> *location = head;
+  NodeType<T> *nextPair;
+  NodeType<T> *nextLoc;
+  T tempData;
+  while(location->next != NULL) {
+    if(location->next->next != NULL) {
+      nextPair = location->next->next;
+      nextLoc = location->next;
+      tempData = location->data;
+      location->data = nextLoc->data;
+      nextLoc->data = tempData;
 
+      location = nextPair;
+    } //if
+    //location = location->next;
+  } //while
+      
+  
 }
 
 

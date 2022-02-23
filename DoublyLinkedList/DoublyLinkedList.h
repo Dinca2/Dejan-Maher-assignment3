@@ -10,7 +10,7 @@ using namespace std;
 template<class T>
 struct NodeType {
   T data; 
-  NodeType<T> *next;   
+  NodeType<T> *next; 
   NodeType<T> *back;
 };
 
@@ -52,7 +52,7 @@ public:
   //Pre-Condition: the list exists. 
   //Post-Condition: items in the list are printed to standard output in reverse order. 
 
-  void deleteSubsection(int upperBound, int lowerBound);
+  void deleteSubsection(T upperBound, T lowerBound);
 
   T mode();
 
