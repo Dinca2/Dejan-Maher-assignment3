@@ -33,6 +33,7 @@ void DoublyLinkedList<T>::insertItem(T &item) {
 
   if(head == NULL) {
     head = newNode;
+    tail = newNode;
   } else if(head->data > newNode->data) {
       newNode->next = head;
       newNode->next->back = newNode;
@@ -101,9 +102,9 @@ void DoublyLinkedList<T>::deleteItem(T &item) {
 
   if(head != NULL && location->next != NULL && location->next->data == item) {
     deleteSubsection(item, item); //deletes duplicates
-  } //if
-
-  delete tempLocation;
+  } else {
+    delete tempLocation;
+   } //if
 } //deleteItem
 
 template <typename T>
@@ -133,7 +134,6 @@ void DoublyLinkedList<T>::printReverse() {
 //Pre-Condition: the list exists. 
 //Post-Condition: items in the list are printed to standard output in reverse order. 
   NodeType<T> *location = tail;
-
   for(int l = length; l > 0; l--) {
     cout << location->data << " ";
     if(location->back != NULL) {
@@ -152,7 +152,7 @@ void DoublyLinkedList<T>::deleteSubsection(T upperBound, T lowerBound) {
     location = location->next;
   } //while
 
-  while(location->data <= upperBound) {
+  while(location->data <= upperBound && location->next != NULL) {
     tempLoc = location;
     if(location->back != NULL && location->next != NULL) {
       location->back->next = location->next;
@@ -160,15 +160,22 @@ void DoublyLinkedList<T>::deleteSubsection(T upperBound, T lowerBound) {
     } else if(location->next != NULL) {
       location->next->back = NULL;
       head = head->next;
-    } //if
-    
-    if(location->next != NULL) {
-      location = location->next;
+    } else if(location->back != NULL) {
+      location->back->next = NULL;
+      tail = tail->back;
     }
+
+    location = location->next;
     delete tempLoc;
     length--;
   } //while
-
+  if(location->data <= upperBound && location->next == NULL) {
+    if(location->back != NULL) {
+      location->back->next = NULL;
+    } 
+    length--;
+    delete location;
+  }
   if(length == 0) {
     head = NULL;
   } //if
