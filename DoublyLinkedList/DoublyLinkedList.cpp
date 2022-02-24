@@ -79,7 +79,6 @@ void DoublyLinkedList<T>::deleteItem(T &item) {
     tail = tail->back;
     length--;
   } else {
-    
     for(int i = 0; i < length; i++) {    
       if(location->next != NULL) {
 	if(location->next->data <= item) {
@@ -99,7 +98,11 @@ void DoublyLinkedList<T>::deleteItem(T &item) {
       cout << "Item not found" << endl;
     } //if
   } //if
-  
+
+  if(head != NULL && location->next != NULL && location->next->data == item) {
+    deleteSubsection(item, item); //deletes duplicates
+  } //if
+
   delete tempLocation;
 } //deleteItem
 
@@ -122,7 +125,7 @@ void DoublyLinkedList<T>::print() {
 	location = location->next;
       } //if
     } //for
-
+  cout << "\n";
 } //print
 
 template <typename T>
@@ -137,7 +140,7 @@ void DoublyLinkedList<T>::printReverse() {
       location = location->back;
     } //if
   } //for
-  
+  cout << "\n";
 }
 
 template <typename T>
@@ -166,7 +169,9 @@ void DoublyLinkedList<T>::deleteSubsection(T upperBound, T lowerBound) {
     length--;
   } //while
 
-  
+  if(length == 0) {
+    head = NULL;
+  } //if
 }
 
 template <typename T>
@@ -180,6 +185,8 @@ T DoublyLinkedList<T>::mode() {
       modeCount++;
     } else if(location->data == location->next->data) {
       count++;
+    } else {
+      count = 1;
     } //if
 
     if(count > modeCount) {
@@ -206,10 +213,10 @@ void DoublyLinkedList<T>::swapAlternate() {
       tempData = location->data;
       location->data = nextLoc->data;
       nextLoc->data = tempData;
-
       location = nextPair;
-    } //if
-    //location = location->next;
+    } else { //if
+      location = location->next;
+    }
   } //while
       
   
