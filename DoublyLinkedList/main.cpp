@@ -1,219 +1,281 @@
 #include "DoublyLinkedList.h"
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <sstream>
+#include <fstream>
 
-int main(int argc, char* argv[]) {
+using namespace std;
 
-  /*DoublyLinkedList<int> list;
-  int item = 1;
-  //DoublyLinkedList<float> list;
-  //flaot item = 1;
-  
-  cout << "testing insert: " << endl;
-  list.insertItem(item);
-  item = 5;
-  list.insertItem(item);
-  item = 3;
-  list.insertItem(item);
-  list.insertItem(item);
-  list.insertItem(item);
-  list.print();
-  cout << "done" << endl;
+//function calls
+template<class T>
+void promptS(DoublyLinkedList<T>);
+template<class T>
+void promptI(DoublyLinkedList<T>);
+template<class T>
+void promptF(DoublyLinkedList<T>);
 
-  cout << endl;
-  
-  cout << "testing print reverse: " << endl;
-  list.printReverse();
-  cout << "done" << endl;
-  
-  cout << endl;
+//main
+int main(int argc, char *argv[]) {
 
-  cout << "testing delete: " << endl;
-  list.print();
-  item = 1;
-  list.deleteItem(item);
-  list.print();
-  item = 2;
-  list.deleteItem(item);
-  item = 5;
-  list.deleteItem(item);
-  list.print();
-  item = 3;
-  list.deleteItem(item);
-  list.print();
-  list.deleteItem(item);
-  cout << "done" << endl;
+    cout << "Enter list type (i - int, f - float, s - std:string): ";
 
-  cout << endl;
+    string type;
+    getline(cin, type);
 
-  cout << "testing inserting in empty list: " << endl << flush;
-  item = 5;
-  list.insertItem(item);
-  list.print();
-  cout << "done" << endl;
+    ifstream file;
+    file.open(argv[1]);
 
-  cout << endl;
-  
-  cout << "testing deleteSubsection: " << endl;
-  item = 1;
-  list.insertItem(item);
-  item = 2;
-  list.insertItem(item);
-  item = 3;
-  list.insertItem(item);
-  item = 5;
-  list.insertItem(item);
-  item = 6;
-  list.insertItem(item);
-  item = 7;
-  list.insertItem(item);
-  cout << "Orignial: ";
-  list.print();
-  //list.deleteSubsection(10, 1); //deletes all
-  //list.deleteSubsection(6, 2); //deletes mid section
-  //list.deleteSubsection(4, 1); //deletes beginning section
-  list.deleteSubsection(7, 4); //deletes back section
-  //list.deleteSubsection(5, 5);
-  cout << "Modified: ";
-  list.print();
-  cout << "done" << endl;
+    //int, float, string instantiations
+    if (0 == type.compare("i")) {
+        DoublyLinkedList<int> intL;
 
-  cout << endl;
+        int input;
 
-  cout << "testing mode: " << endl;
-  //item = 1;
-  //list.insertItem(item);
-  item = 2;
-  list.insertItem(item);
-  item = 3;
-  list.insertItem(item);
-  item = 5;
-  list.insertItem(item);
-  item = 6;
-  list.insertItem(item);
-  item = 7;
-  list.insertItem(item);
-  //list.insertItem(item);
-  //list.deleteSubsection(7,1); test for empty list
-  list.print();
-  if(list.lengthIs() == 0) {
-    cout << "mode: " << endl;
-  } else {
-    cout << "mode: " << list.mode() << endl;
-  }
-  cout << "done" << endl;
+        while (file >> input) {
+            intL.insertItem(input);
+        }
 
-  cout << endl;
+        file.close();
 
-  cout << "testing swapAlt: " << endl;
-  list.print();
-  list.swapAlternate();
-  list.print();
-  cout << "done" << endl;
-  */
+        promptI(intL);
 
-  /*DoublyLinkedList<string> list;
-  string item = "Max";
+    } else if(0 == type.compare("f")) {
+        DoublyLinkedList<float> floatL;
 
-  cout << "testing insert: " << endl;
-  list.insertItem(item);
-  item = "Dejan";
-  list.insertItem(item);
-  item = "Craig";
-  list.insertItem(item);
-  list.insertItem(item);
-  list.insertItem(item);
-  list.print();
-  cout << "done" << endl;
+        float input;
 
-  cout << endl;
+        while (file >> input) {
+            floatL.insertItem(input);
+        }
 
-  cout << "testing print reverse: " << endl;
-  list.printReverse();
-  cout << "done" << endl;
+        file.close();
 
-  cout << endl;
+        promptF(floatL);
 
-  cout << "testing delete: " << endl;
-  list.print();
-  item = "Max";
-  list.deleteItem(item);
-  list.print();
-  item = "Connor";
-  list.deleteItem(item);
-  item = "Dejan";;
-  list.deleteItem(item);
-  list.print();
-  item = "Craig";
-  list.deleteItem(item);
-  list.print();
-  list.deleteItem(item);
-  cout << "done" << endl;
+    } else if(0 == type.compare("s")) {
+        DoublyLinkedList<string> stringL;
 
-  cout << endl;
+        string input;
 
-  cout << "testing inserting in empty list: " << endl << flush;
-  item = "Craig";
-  list.insertItem(item);
-  list.print();
-  cout << "done" << endl;
+        while (file >> input) {
+            stringL.insertItem(input);
+        }
 
-  cout << endl;
+        file.close();
 
-  cout << "testing deleteSubsection: " << endl;
-  item = "Max";
-  list.insertItem(item);
-  item = "Connor";
-  list.insertItem(item);
-  item = "Craig";
-  list.insertItem(item);
-  item = "Dejan";
-  list.insertItem(item);
-  item = "Katrina";
-  list.insertItem(item);
-  item = "Robin";
-  list.insertItem(item);
-  cout << "Orignial: ";
-  list.print();
-  list.deleteSubsection("Z", "A"); //deletes all
-  //list.deleteSubsection(6, 2); //deletes mid section
-  //list.deleteSubsection(4, 1); //deletes beginning section
-  //list.deleteSubsection("Zia", "Nic"); //deletes back section
-  //list.deleteSubsection(5, 5);
-  cout << "Modified: ";
-  list.print();
-  cout << "done" << endl;
+        promptS(stringL);
+    }
+    return EXIT_SUCCESS;
+}
 
-  cout << endl;
+//prompts for each type of data
+template<class T>
+void promptS(DoublyLinkedList<T> stringLP) {
 
-  cout << "testing mode: " << endl;
-  //item = "Max";
-  //list.insertItem(item);
-  item = "Connor";
-  list.insertItem(item);
-  item = "Craig";
-  list.insertItem(item);
-  item = "Dejan";
-  list.insertItem(item);
-  item = "Katrina";
-  list.insertItem(item);
-  item = "Robin";
-  list.insertItem(item);
-  //list.insertItem(item);
-  //list.deleteSubsection(7,1); test for empty list
-  list.print();
-  if(list.lengthIs() == 0) {
-    cout << "mode: " << endl;
-  } else {
-    cout << "mode: " << list.mode() << endl;
-  } //if
-  cout << "done" << endl;
+    string commandLine = "";
+    char command = ' ';
+    bool stop = false;
+    cout << "insert (i), delete (d), length (l), print (p),";
+    cout << "deleteSub (b), mode (m), printReverse(r), swapAlt (s), quit (q)" << endl;
 
-  cout << endl;
 
-  cout << "testing swapAlt: " << endl;
-  list.print();
-  list.swapAlternate();
-  list.print();
-  cout << "done" << endl;
-  */
-return EXIT_SUCCESS;
+    while (!stop) {
+        cout << "Enter a command: ";
+
+        getline(cin, commandLine);
+        command = commandLine[0];
+
+        if (command =='i') {
+
+            cout << "Item to insert: ";
+            string in;
+            getline(cin, in);
+            stringLP.insertItem(in);
+
+        } else if (command == 'd') {
+
+            cout << "Item to delete: ";
+            string in;
+            getline(cin, in);
+            stringLP.deleteItem(in);
+
+        } else if (command == 'l') {
+
+            cout << "Length is: " << stringLP.lengthIs() << endl;
+
+        } else if (command == 'p') {
+
+            stringLP.print();
+
+        } else if (command = 'b'){
+
+            cout << "Please enter a lower bound: ";
+            string lb;
+            getline(cin, lb);
+            cout << "Please enter an upper bound: ";
+            string ub;
+            getline(cin, ub);
+            stringLP.deleteSubsection(lb, ub);
+
+        } else if (command == 'm') {
+
+            stringLP.mode();
+
+        } else if (command == 'r') {
+
+            stringLP.printReverse();
+
+        } else if (command == 's') {
+
+            stringLP.swapAlternate();
+            stringLP.print();
+            exit(0);
+
+        } else if (command == 'q') {
+
+            cout << "Quitting program..." << endl;
+            stop = true;
+        }
+    }*/
+        }
+
+template<class T>
+void promptI(DoublyLinkedList<T> intLP) {
+
+    bool stop = false;
+    string commandLine = "";
+    char command =' ';
+
+    cout << endl;
+    cout << "insert (i), delete (d), length (l), print (p),";
+    cout << "deleteSub (b), mode (m), printReverse(r), swapAlt (s), quit (q)" << endl;
+
+    while (!stop) {
+
+        cout << "Enter a command: ";
+        getline(cin, commandLine);
+        command = commandLine[0];
+
+        if (command == 'i') {
+
+            cout << "Item to insert: ";
+            int in;
+            cin >> in;
+            intLP.insertItem(in);
+            cout.flush();
+        } else if (command == 'd') {
+
+            cout << "Item to delete: ";
+            int in;
+            cin >> in;
+            intLP.deleteItem(in);
+
+        } else if (command == 'l') {
+
+            cout << "Length is: " << intLP.lengthIs() << endl;
+
+        } else if (command == 'p') {
+
+            intLP.print();
+
+        } else if (command == 'b'){
+
+            cout << "Please enter a lower bound: ";
+            int lbi;
+            cin >> lbi;
+            cout << "Please enter an upper bound: ";
+            int ubi;
+            cin >> ubi;
+            intLP.deleteSubsection(lbi, ubi);
+
+        } else if (command == 'm') {
+
+            intLP.mode();
+
+        } else if (command == 'r') {
+
+            intLP.printReverse();
+
+        } else if (command == 's') {
+
+            intLP.swapAlternate();
+            intLP.print();
+            exit(0);
+
+        } else if (command == 'q') {
+
+            cout << "Quitting program..." << endl;
+            stop = true;
+        }
+    }
+}
+
+template<class T>
+void promptF(DoublyLinkedList<T> floatLP) {
+
+    string commandLine = "";
+    char command = ' ';
+    bool stop = false;
+    cout << "insert (i), delete (d), length (l), print (p),";
+    cout << "deleteSub (b), mode (m), printReverse(r), swapAlt (s), quit (q)" << endl;
+
+    while (!stop) {
+
+        cout << "Enter a command: ";
+
+        getline(cin, commandLine);
+        command = commandLine[0];
+
+        if (command == 'i') {
+
+            cout << "Item to insert: ";
+            float in;
+            cin >> in;
+            floatLP.insertItem(in);
+
+        } else if (command == 'd') {
+
+            cout << "Item to delete: ";
+            float in;
+            cin >> in;
+            floatLP.deleteItem(in);
+
+        } else if (command == 'l') {
+
+            cout << "Length is: " << floatLP.lengthIs() << endl;
+
+        } else if (command == 'p') {
+
+            floatLP.print();
+
+        } else if (command == 'b'){
+
+            cout << "Please enter a lower bound: ";
+            float lbp;
+            cin >> lbp;
+            cout << "Please enter an upper bound: ";
+            float ubp;
+            cin >> ubp;
+            floatLP.deleteSubsection(lbp, ubp);
+
+        } else if (command == 'm') {
+
+            floatLP.mode();
+
+        } else if (command == 'r') {
+
+            floatLP.printReverse();
+
+        } else if (command == 's') {
+
+            floatLP.swapAlternate();
+            stop = true;
+
+        } else if (command == 'q') {
+
+            cout << "Quitting program..." << endl;
+            stop = true;
+        }
+    }
 }
