@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     cout << "Enter list type (i - int, f - float, s - std:string): ";
 
-    string type;
+    string type = "";
     getline(cin, type);
 
     ifstream file;
@@ -76,6 +76,7 @@ void promptS(DoublyLinkedList<T> stringLP) {
     string commandLine = "";
     char command = ' ';
     bool stop = false;
+
     cout << "insert (i), delete (d), length (l), print (p),";
     cout << "deleteSub (b), mode (m), printReverse(r), swapAlt (s), quit (q)" << endl;
 
@@ -88,16 +89,28 @@ void promptS(DoublyLinkedList<T> stringLP) {
 
         if (command =='i') {
 
+            stringstream sin;
+            string cmd = "";
+            string in = "";
+
             cout << "Item to insert: ";
-            string in;
-            getline(cin, in);
+            getline(cin, cmd);
+            sin << cmd;
+            sin >> in;
+
             stringLP.insertItem(in);
 
         } else if (command == 'd') {
 
+            stringstream sin;
+            string cmd = "";
+            string in = "";
+
             cout << "Item to delete: ";
-            string in;
-            getline(cin, in);
+            getline(cin, cmd);
+            sin << cmd;
+            sin >> in;
+
             stringLP.deleteItem(in);
 
         } else if (command == 'l') {
@@ -108,19 +121,19 @@ void promptS(DoublyLinkedList<T> stringLP) {
 
             stringLP.print();
 
-        } else if (command = 'b'){
+        } else if (command == 'b'){
 
             cout << "Please enter a lower bound: ";
-            string lb;
+            string lb = "";
             getline(cin, lb);
             cout << "Please enter an upper bound: ";
-            string ub;
+            string ub = "";
             getline(cin, ub);
-            stringLP.deleteSubsection(lb, ub);
+            stringLP.deleteSubsection(ub, lb);
 
         } else if (command == 'm') {
 
-            stringLP.mode();
+            cout << "Mode is: " << stringLP.mode() << endl;
 
         } else if (command == 'r') {
 
@@ -130,14 +143,14 @@ void promptS(DoublyLinkedList<T> stringLP) {
 
             stringLP.swapAlternate();
             stringLP.print();
-            exit(0);
+            stop = true;
 
         } else if (command == 'q') {
 
             cout << "Quitting program..." << endl;
             stop = true;
         }
-    }*/
+    }
         }
 
 template<class T>
@@ -158,17 +171,28 @@ void promptI(DoublyLinkedList<T> intLP) {
         command = commandLine[0];
 
         if (command == 'i') {
+            stringstream item;
+            string int1 = "";
+            int num = 0;
 
             cout << "Item to insert: ";
-            int in;
-            cin >> in;
-            intLP.insertItem(in);
-            cout.flush();
+            getline(cin, int1);
+            item << int1;
+            item >> num;
+
+            intLP.insertItem(num);
+
         } else if (command == 'd') {
 
+            stringstream item2;
+            string int2 = "";
+            int in = 0;
+
             cout << "Item to delete: ";
-            int in;
-            cin >> in;
+            getline(cin, int2);
+            item2 << int2;
+            item2 >> in;
+
             intLP.deleteItem(in);
 
         } else if (command == 'l') {
@@ -181,17 +205,30 @@ void promptI(DoublyLinkedList<T> intLP) {
 
         } else if (command == 'b'){
 
+            stringstream delsub;
+            stringstream delsub2;
+            string del = "";
+            int del1 = 0;
+            int del2 = 0;
+
             cout << "Please enter a lower bound: ";
-            int lbi;
-            cin >> lbi;
+
+            getline(cin, del);
+            delsub << del;
+            delsub >> del1;
+
             cout << "Please enter an upper bound: ";
-            int ubi;
-            cin >> ubi;
-            intLP.deleteSubsection(lbi, ubi);
+
+            del = "";
+            getline(cin, del);
+            delsub2 << del;
+            delsub2 >> del2;
+
+            intLP.deleteSubsection(del2, del1);
 
         } else if (command == 'm') {
 
-            intLP.mode();
+            cout << "Mode is: " << intLP.mode() << endl;
 
         } else if (command == 'r') {
 
@@ -201,7 +238,7 @@ void promptI(DoublyLinkedList<T> intLP) {
 
             intLP.swapAlternate();
             intLP.print();
-            exit(0);
+            stop = true;
 
         } else if (command == 'q') {
 
@@ -228,18 +265,28 @@ void promptF(DoublyLinkedList<T> floatLP) {
         command = commandLine[0];
 
         if (command == 'i') {
+            stringstream item;
+            string flo1 = "";
+            float num = 0;
 
             cout << "Item to insert: ";
-            float in;
-            cin >> in;
-            floatLP.insertItem(in);
+            getline(cin, flo1);
+            item << flo1;
+            item >> num;
+
+            floatLP.insertItem(num);
 
         } else if (command == 'd') {
+            stringstream item3;
+            string flo2 = "";
+            float del = 0;
 
             cout << "Item to delete: ";
-            float in;
-            cin >> in;
-            floatLP.deleteItem(in);
+            getline(cin, flo2);
+            item3 << flo2;
+            item3 >> del;
+
+            floatLP.deleteItem(del);
 
         } else if (command == 'l') {
 
@@ -250,18 +297,30 @@ void promptF(DoublyLinkedList<T> floatLP) {
             floatLP.print();
 
         } else if (command == 'b'){
+            stringstream delsub;
+            stringstream delsub2;
+            string flodel = "";
+            float del1 = 0;
+            float del2 = 0;
 
             cout << "Please enter a lower bound: ";
-            float lbp;
-            cin >> lbp;
+
+            getline(cin, flodel);
+            delsub << flodel;
+            delsub >> del1;
+
             cout << "Please enter an upper bound: ";
-            float ubp;
-            cin >> ubp;
-            floatLP.deleteSubsection(lbp, ubp);
+
+            flodel = "";
+            getline(cin, flodel);
+            delsub2 << flodel;
+            delsub2 >> del2;
+
+            floatLP.deleteSubsection(del2, del1);
 
         } else if (command == 'm') {
 
-            floatLP.mode();
+            cout << "Mode is: " << floatLP.mode() << endl;
 
         } else if (command == 'r') {
 
