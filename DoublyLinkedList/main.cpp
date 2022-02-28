@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
 template<class T>
 void promptS(DoublyLinkedList<T> stringLP) {
 
+    //stringstream to parse the command given
     string commandLine = "";
     char command = ' ';
     bool stop = false;
@@ -87,7 +88,7 @@ void promptS(DoublyLinkedList<T> stringLP) {
         getline(cin, commandLine);
         command = commandLine[0];
 
-        if (command =='i') {
+        if (command =='i') { //Insert
 
             stringstream sin;
             string cmd = "";
@@ -100,7 +101,7 @@ void promptS(DoublyLinkedList<T> stringLP) {
 
             stringLP.insertItem(in);
 
-        } else if (command == 'd') {
+        } else if (command == 'd') { //Delete
 
             stringstream sin;
             string cmd = "";
@@ -113,15 +114,15 @@ void promptS(DoublyLinkedList<T> stringLP) {
 
             stringLP.deleteItem(in);
 
-        } else if (command == 'l') {
+        } else if (command == 'l') { //Length
 
             cout << "Length is: " << stringLP.lengthIs() << endl;
 
-        } else if (command == 'p') {
+        } else if (command == 'p') { //Print
 
             stringLP.print();
 
-        } else if (command == 'b'){
+        } else if (command == 'b'){ //DeleteSubsection
 
             cout << "Please enter a lower bound: ";
             string lb = "";
@@ -131,21 +132,21 @@ void promptS(DoublyLinkedList<T> stringLP) {
             getline(cin, ub);
             stringLP.deleteSubsection(ub, lb);
 
-        } else if (command == 'm') {
+        } else if (command == 'm') { //Mode
 
             cout << "Mode is: " << stringLP.mode() << endl;
 
-        } else if (command == 'r') {
+        } else if (command == 'r') { //ReversePrint
 
             stringLP.printReverse();
 
-        } else if (command == 's') {
+        } else if (command == 's') { //Swap Alternate
 
             stringLP.swapAlternate();
             stringLP.print();
             stop = true;
 
-        } else if (command == 'q') {
+        } else if (command == 'q') { //Quit
 
             cout << "Quitting program..." << endl;
             stop = true;
@@ -170,7 +171,7 @@ void promptI(DoublyLinkedList<T> intLP) {
         getline(cin, commandLine);
         command = commandLine[0];
 
-        if (command == 'i') {
+        if (command == 'i') { //Insert
             stringstream item;
             string int1 = "";
             int num = 0;
@@ -182,7 +183,7 @@ void promptI(DoublyLinkedList<T> intLP) {
 
             intLP.insertItem(num);
 
-        } else if (command == 'd') {
+        } else if (command == 'd') { //Delete
 
             stringstream item2;
             string int2 = "";
@@ -195,15 +196,15 @@ void promptI(DoublyLinkedList<T> intLP) {
 
             intLP.deleteItem(in);
 
-        } else if (command == 'l') {
+        } else if (command == 'l') { //Length
 
             cout << "Length is: " << intLP.lengthIs() << endl;
 
-        } else if (command == 'p') {
+        } else if (command == 'p') { //Print
 
             intLP.print();
 
-        } else if (command == 'b'){
+        } else if (command == 'b'){ //DeleteSubsection
 
             stringstream delsub;
             stringstream delsub2;
@@ -226,21 +227,21 @@ void promptI(DoublyLinkedList<T> intLP) {
 
             intLP.deleteSubsection(del2, del1);
 
-        } else if (command == 'm') {
+        } else if (command == 'm') { //Mode
 
             cout << "Mode is: " << intLP.mode() << endl;
 
-        } else if (command == 'r') {
+        } else if (command == 'r') { //ReversePrint
 
             intLP.printReverse();
 
-        } else if (command == 's') {
+        } else if (command == 's') { //SwapAlternate
 
             intLP.swapAlternate();
             intLP.print();
             stop = true;
 
-        } else if (command == 'q') {
+        } else if (command == 'q') { //Quit
 
             cout << "Quitting program..." << endl;
             stop = true;
@@ -264,7 +265,7 @@ void promptF(DoublyLinkedList<T> floatLP) {
         getline(cin, commandLine);
         command = commandLine[0];
 
-        if (command == 'i') {
+        if (command == 'i') { //Insert
             stringstream item;
             string flo1 = "";
             float num = 0;
@@ -276,7 +277,7 @@ void promptF(DoublyLinkedList<T> floatLP) {
 
             floatLP.insertItem(num);
 
-        } else if (command == 'd') {
+        } else if (command == 'd') { //Delete
             stringstream item3;
             string flo2 = "";
             float del = 0;
@@ -288,15 +289,15 @@ void promptF(DoublyLinkedList<T> floatLP) {
 
             floatLP.deleteItem(del);
 
-        } else if (command == 'l') {
+        } else if (command == 'l') { //Length
 
             cout << "Length is: " << floatLP.lengthIs() << endl;
 
-        } else if (command == 'p') {
+        } else if (command == 'p') { //Print
 
             floatLP.print();
 
-        } else if (command == 'b'){
+        } else if (command == 'b'){ //Delete Subsection
             stringstream delsub;
             stringstream delsub2;
             string flodel = "";
@@ -318,20 +319,20 @@ void promptF(DoublyLinkedList<T> floatLP) {
 
             floatLP.deleteSubsection(del2, del1);
 
-        } else if (command == 'm') {
+        } else if (command == 'm') { //Mode
 
             cout << "Mode is: " << floatLP.mode() << endl;
 
-        } else if (command == 'r') {
+        } else if (command == 'r') { //ReversePrint
 
             floatLP.printReverse();
 
-        } else if (command == 's') {
+        } else if (command == 's') { //Swap Alternate
 
             floatLP.swapAlternate();
             stop = true;
 
-        } else if (command == 'q') {
+        } else if (command == 'q') { //Quit
 
             cout << "Quitting program..." << endl;
             stop = true;
